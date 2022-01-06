@@ -1,58 +1,42 @@
 module.exports = {
-    name: 'sonic-shopexample-pipeline',
+    name: 'coffeeshop-pipeline',
     stages: [
         {
-            name: 'source',
+            name: 'Source',
             actions: [
                 {
                     type: 'SOURCE',
                     name: 'source',
-                    repo: 'rise-foundation',
-                    owner: 'rise-cli',
+                    repo: 'coffee_shop',
+                    owner: 'dodgeblaster',
                     outputArtifact: 'sourceZip'
                 }
             ]
         },
         {
-            name: 'DeployTestStage',
+            name: 'Staging',
             actions: [
                 {
                     type: 'BUILD',
                     name: 'DeployApi',
                     script: '/deployApi.yml',
                     env: {
-                        STAGE: 'test'
+                        STAGE: 'staging'
                     },
                     inputArtifact: 'sourceZip',
                     outputArtifact: 'buildZip'
+                },
+                {
+                    type: 'BUILD',
+                    name: 'Test',
+                    script: '/test.yml',
+                    env: {
+                        STAGE: 'staging'
+                    },
+                    inputArtifact: 'sourceZip',
+                    outputArtifact: 'testZip'
                 }
             ]
         }
-        // {
-        //     name: 'DeployTests',
-        //     actions: [
-        //         {
-        //             type: 'BUILD',
-        //             name: 'DeployApiTests',
-        //             script: '/deployApiTests.yml',
-        //             env: {
-        //                 STAGE: 'test'
-        //             },
-        //             inputArtifact: 'sourceZip',
-        //             outputArtifact: 'buildZip'
-        //         }
-        //     ]
-        // },
-        // {
-        //     name: 'RunTests',
-        //     actions: [
-        //         {
-        //             type: 'INVOKE',
-        //             name: 'DeployTestInfra',
-        //             functionName: 'risefoundationtests-createTestInfra-dev',
-        //             region: 'us-east-1'
-        //         }
-        //     ]
-        // }
     ]
 }

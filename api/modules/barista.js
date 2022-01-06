@@ -53,10 +53,11 @@ module.exports = {
             },
             {
                 type: 'emit',
-                event: 'orderStarted',
+                event: 'orderStatusUpdated',
                 input: {
                     storeId: '$storeId',
-                    id: '$id'
+                    id: '$id',
+                    type: 'order-started'
                 }
             },
             ORDER_STATUS_OUTPUT
@@ -86,10 +87,11 @@ module.exports = {
             },
             {
                 type: 'emit',
-                event: 'orderCompleted',
+                event: 'orderStatusUpdated',
                 input: {
                     storeId: '$storeId',
-                    id: '$id'
+                    id: '$id',
+                    type: 'order-completed'
                 }
             },
             ORDER_STATUS_OUTPUT
@@ -116,6 +118,15 @@ module.exports = {
                     id: '$id',
                     time: '@now',
                     products: '$products'
+                }
+            },
+            {
+                type: 'emit',
+                event: 'orderStatusUpdated',
+                input: {
+                    storeId: '$storeId',
+                    id: '$id',
+                    type: 'order-added'
                 }
             },
             {
