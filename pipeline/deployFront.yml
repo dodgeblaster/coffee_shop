@@ -6,5 +6,5 @@ phases:
 
     build:
         commands:
-            - cd ./tests && npm i && npx playwright install
-            - npm run test
+            - npm i -g vercel
+            - cd ./front && vercel --token=$TOKEN --confirm

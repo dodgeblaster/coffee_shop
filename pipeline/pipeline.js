@@ -28,6 +28,17 @@ module.exports = {
                 },
                 {
                     type: 'BUILD',
+                    name: 'DeployFront',
+                    script: '/deployFront.yml',
+                    env: {
+                        STAGE: 'staging',
+                        TOKEN: '@secret.VERCEL_TOKEN'
+                    },
+                    inputArtifact: 'sourceZip',
+                    outputArtifact: 'frontZip'
+                },
+                {
+                    type: 'BUILD',
                     name: 'Test',
                     script: '/test.yml',
                     env: {
